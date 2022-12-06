@@ -1,0 +1,10 @@
+.navbar {
+    background-color: black;
+}
+.navbar a {
+    margin: 1rem;
+    color: lightgray;
+}
+.navbar a.active{
+    color: white;
+}
