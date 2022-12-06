@@ -1,10 +1,14 @@
 import React from "react";
+import CompanyCard from "./CompanyCard";
 
-const Companies = () => {
+const Companies = ({ companies }) => {
     return (
-        <h1>
-            This is the list of companies
-        </h1>
+        <div className="companyList">
+            <h1>Companies</h1>
+            {companies.map(company => (
+                <CompanyCard key={company.handle} company={company} />
+            ))}
+        </div>
     )
 }
 
