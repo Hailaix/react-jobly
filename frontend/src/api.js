@@ -49,16 +49,16 @@ class JoblyApi {
   static async getCompanies(name) {
     //allows empty search to return full list
     const res = name && name !== ''
-    ? await this.request('companies', { name })
-    : await this.request('companies');
+      ? await this.request('companies', { name })
+      : await this.request('companies');
     return res.companies;
   }
 
   //GET list of jobs, filtering by ILIKE title
   static async getJobs(title) {
     const res = title && title !== ''
-    ? await this.request('jobs', { title })
-    : await this.request('jobs');
+      ? await this.request('jobs', { title })
+      : await this.request('jobs');
     return res.jobs;
   }
 
@@ -67,10 +67,16 @@ class JoblyApi {
     const res = await this.request(`users/${username}`)
     return res.user;
   }
-  
+
   //POST username and password in data to login, get token back
   static async login(data) {
-    const res = await this.request(`auth/token`, data, "post");
+    const res = await this.request('auth/token', data, 'post');
+    return res.token;
+  }
+
+  //POST {username, password, email, firstName, lastName} to register, get token back
+  static async signup(data) {
+    const res = await this.request('auth/register', data, 'post');
     return res.token;
   }
 }

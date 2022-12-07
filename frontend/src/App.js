@@ -51,6 +51,12 @@ function App() {
     setToken(token);
   }
 
+  //sign up
+  const signup = async (formData) => {
+    const token = await JoblyApi.signup(formData);
+    setToken(token);
+  }
+
   if (!isLoaded) {
     return (<h1>Loading...</h1>);
   }
@@ -67,7 +73,7 @@ function App() {
             <Route path='jobs' element={<Jobs />} />
             <Route path='profile' element={<Profile />} />
             <Route path='login' element={<LoginForm submit={login} />} />
-            <Route path='signup' element={<SignUpForm />} />
+            <Route path='signup' element={<SignUpForm submit={signup} />} />
           </Routes>
         </loginContext.Provider>
       </BrowserRouter>
