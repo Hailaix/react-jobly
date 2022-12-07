@@ -10,7 +10,7 @@ import Companies from './companies/Companies';
 import Jobs from './jobs/Jobs';
 import LoginForm from './forms/LoginForm';
 import SignUpForm from './forms/SignUpForm';
-import Profile from './Profile';
+import Profile from './forms/Profile';
 import Company from './companies/Company';
 import loginContext from './loginContext';
 import JoblyApi from './api';
@@ -19,19 +19,18 @@ import useLocalStorage from './useLocalStorage';
 
 
 function App() {
-  //hard coded token for testing
-  const statictoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   //sets token in local storage under token, as well as in state
   const [token, setToken] = useLocalStorage('token');
 
+  //set the token in the API
   JoblyApi.token = token;
-  //for now, on initial mount only, grab the user based on static token
+
+  //Whenever token changes, grab the new user info from the server and put it in state
   useEffect(() => {
     const getUser = async () => {
+      //if there is no token, do nothing
       if (token) {
         const { username } = jwt_decode(token);
         setUser(await JoblyApi.getUser(username));
@@ -59,6 +58,11 @@ function App() {
     setToken(token);
   }
 
+  //change details of current user
+  const editProfile = async (formData) => {
+    setUser(await JoblyApi.editUser(user.username, formData));
+  }
+
   if (!isLoaded) {
     return (<h1>Loading...</h1>);
   }
@@ -78,7 +82,7 @@ function App() {
             <Route path='companies' element={user ? <Companies /> : <Navigate to='/login' />} />
             <Route path='companies/:handle' element={user ? <Company /> : <Navigate to='/login' />} />
             <Route path='jobs' element={user ? <Jobs /> : <Navigate to='/login' />} />
-            <Route path='profile' element={user ? <Profile /> : <Navigate to='/login' />} />
+            <Route path='profile' element={user ? <Profile submit={editProfile} /> : <Navigate to='/login' />} />
           </Routes>
         </loginContext.Provider>
       </BrowserRouter>
