@@ -8,6 +8,7 @@ const LoginForm = ({ submit }) => {
         password: ''
     };
     const [formData, setFormData] = useState(INIT_STATE);
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
     //generic change handler
@@ -27,7 +28,7 @@ const LoginForm = ({ submit }) => {
             navigate('/');
         } catch (e) {
             //error would be failed log in
-            alert("username/password do not match, please try again");
+            setErrors(e);
             setFormData(INIT_STATE);
         }
 
@@ -50,6 +51,9 @@ const LoginForm = ({ submit }) => {
                     autoComplete='current-password'
                     onChange={handleChange} />
                 <input type='submit' />
+                {errors.map((e, i) => (
+                    <small key={i} className="error">{e}</small>
+                ))}
             </form>
         </div>
     )
