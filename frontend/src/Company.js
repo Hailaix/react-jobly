@@ -24,11 +24,15 @@ const Company = ({ companies }) => {
         return (<h1>Loading...</h1>);
     }
     // render it
+    console.log(company.jobs);
     return (
         <div>
-            {company.logoUrl && <img src={company.logoUrl} alt='logo' />}
             <h1>{company.name}</h1>
+            <p>Employees : {company.numEmployees}</p>
             <p>{company.description}</p>
+            {company.jobs.map(job => (
+                <p key={job.id}>{job.title}</p>
+            ))}
         </div>
     )
 }
