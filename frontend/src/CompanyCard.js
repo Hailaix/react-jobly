@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const CompanyCard = ({ company }) => {
     return (
         <div className="companycard">
-            <Link to='/'>
+            <Link to={`${company.handle}`}>
                 <img src={company.logo ? company.logo : logo} className='companycardimg' alt='logo' />
                 <h2 className="companycardtitle">{company.name}</h2>
             </Link>

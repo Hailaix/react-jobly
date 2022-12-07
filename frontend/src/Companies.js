@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import JoblyApi from "./api";
 import CompanyCard from "./CompanyCard";
 
-const Companies = ({ companies }) => {
+const Companies = () => {
+    const [companies, setCompanies] = useState();
+    useEffect(() => {
+        const getCompanies = async () => {
+            setCompanies(await JoblyApi.getCompanies());
+        }
+        getCompanies();
+    }, []);
+    if(!companies){
+        return(<h1>Loading...</h1>);
+    }
     return (
         <div className="companyList">
             <h1>Companies</h1>
