@@ -25,7 +25,6 @@ const Company = ({ companies }) => {
         return (<h1>Loading...</h1>);
     }
     // render it
-    console.log(company.jobs);
     return (
         <div>
             <h1>{company.name}</h1>
