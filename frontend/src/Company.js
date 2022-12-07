@@ -31,7 +31,14 @@ const Company = () => {
             <p>Employees : {company.numEmployees}</p>
             <p>{company.description}</p>
             {company.jobs.map(job => (
-                <JobCard key={job.id} job={job} />
+                <JobCard 
+                    key={job.id}
+                    companyHandle={handle}
+                    companyName={company.name} 
+                    equity={job.equity}
+                    salary={job.salary}
+                    title={job.title} 
+                />
             ))}
         </div>
     )

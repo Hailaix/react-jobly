@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './JobCard.css'
 
-const JobCard = ({ job }) => {
+const JobCard = ({ companyHandle, companyName, equity, salary, title }) => {
     return (
         <div className="jobCard">
-            <h3>{job.title}</h3>
-            {job.salary && <p>Salary: {`$${job.salary.toLocaleString()}`}</p>}
-            {job.equity >= 0 && <p>Equity: {job.equity}</p>}
+            <h3>{title} at <small><Link to={`/companies/${companyHandle}`}>{companyName}</Link></small></h3>
+            {salary && <p>Salary: {`$${salary.toLocaleString()}`}</p>}
+            {equity > 0 && <p>Equity: {equity}</p>}
         </div>
     )
 }

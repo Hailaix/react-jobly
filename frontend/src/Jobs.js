@@ -15,12 +15,18 @@ const Jobs = () => {
     if (!jobs) {
         return (<h1>Loading...</h1>);
     }
-    console.log(jobs);
     return (
         <div>
             <h1>Job listings</h1>
             {jobs.map(job => (
-                <JobCard key={job.id} job={job} />
+                <JobCard 
+                    key={job.id}
+                    companyHandle={job.companyHandle}
+                    companyName={job.companyName} 
+                    equity={job.equity}
+                    salary={job.salary}
+                    title={job.title}
+                />
             ))}
         </div>
     )
