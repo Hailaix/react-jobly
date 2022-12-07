@@ -45,7 +45,7 @@ class JoblyApi {
 
   // obviously, you'll add a lot here ...
 
-  // GET list of companies, filter name ILIKE name
+  // GET list of companies, filter by ILIKE name
   static async getCompanies(name) {
     //allows empty search to return full list
     const res = name !== ''
@@ -54,9 +54,11 @@ class JoblyApi {
     return res.companies;
   }
 
-  //GET list of jobs, no filtering for now
-  static async getJobs() {
-    const res = await this.request('jobs');
+  //GET list of jobs, filtering by ILIKE title
+  static async getJobs(title) {
+    const res = title !== ''
+    ? await this.request('jobs', { title })
+    : await this.request('jobs');
     return res.jobs;
   }
 }

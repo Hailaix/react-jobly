@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import JoblyApi from "./api";
 import JobCard from "./JobCard";
+import SearchForm from "./SearchForm";
 
 const Jobs = () => {
     const [jobs, setJobs] = useState();
-    const getJobs = async () => {
-        setJobs(await JoblyApi.getJobs());
+    
+    const getJobs = async (search) => {
+        setJobs(await JoblyApi.getJobs(search));
     }
     //initial grab of all jobs on mount
     useEffect(() => {
@@ -18,11 +20,12 @@ const Jobs = () => {
     return (
         <div>
             <h1>Job listings</h1>
+            <SearchForm submit={getJobs} />
             {jobs.map(job => (
-                <JobCard 
+                <JobCard
                     key={job.id}
                     companyHandle={job.companyHandle}
-                    companyName={job.companyName} 
+                    companyName={job.companyName}
                     equity={job.equity}
                     salary={job.salary}
                     title={job.title}
