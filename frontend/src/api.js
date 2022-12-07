@@ -48,7 +48,7 @@ class JoblyApi {
   // GET list of companies, filter by ILIKE name
   static async getCompanies(name) {
     //allows empty search to return full list
-    const res = name !== ''
+    const res = name && name !== ''
     ? await this.request('companies', { name })
     : await this.request('companies');
     return res.companies;
@@ -56,16 +56,22 @@ class JoblyApi {
 
   //GET list of jobs, filtering by ILIKE title
   static async getJobs(title) {
-    const res = title !== ''
+    const res = title && title !== ''
     ? await this.request('jobs', { title })
     : await this.request('jobs');
     return res.jobs;
   }
+
+  //GET the current user (should never have to worry about this not getting data)
+  static async getUser(username) {
+    const res = await this.request(`users/${username}`)
+    return res.user;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-  "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-  "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+//   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+//   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
 export default JoblyApi;
