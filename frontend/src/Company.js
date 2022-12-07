@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import JoblyApi from "./api";
+import JobCard from "./JobCard";
 const Company = ({ companies }) => {
     //grab the handle from the params
     const { handle } = useParams();
@@ -31,7 +32,7 @@ const Company = ({ companies }) => {
             <p>Employees : {company.numEmployees}</p>
             <p>{company.description}</p>
             {company.jobs.map(job => (
-                <p key={job.id}>{job.title}</p>
+                <JobCard key={job.id} job={job} />
             ))}
         </div>
     )

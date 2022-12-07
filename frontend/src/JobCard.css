@@ -1,0 +1,6 @@
+.jobCard {
+    margin: auto;
+    width: 50%;
+    background-color: lightgray;
+    box-shadow: 0 8px 8px -4px;
+}
