@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 import './App.css';
@@ -21,8 +21,8 @@ import useLocalStorage from './useLocalStorage';
 function App() {
   //hard coded token for testing
   const statictoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-  "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-  "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   //sets token in local storage under token, as well as in state
@@ -41,13 +41,13 @@ function App() {
     setIsLoaded(true);
   }, [token])
 
-  //log out of current user
+  //log out of current user by removing token
   const logout = () => {
     setToken(null);
     setUser(null);
   }
 
-  //log in to the site
+  //log in
   const login = async (formData) => {
     const token = await JoblyApi.login(formData);
     setToken(token);
@@ -63,6 +63,9 @@ function App() {
     return (<h1>Loading...</h1>);
   }
 
+  /**
+   * As Route protection, protected Routes will navigate to the login page unless user is present. 
+   */
   return (
     <div className="App">
       <BrowserRouter>
@@ -70,12 +73,12 @@ function App() {
           <NavBar logout={logout} />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='companies' element={<Companies />} />
-            <Route path='companies/:handle' element={<Company />} />
-            <Route path='jobs' element={<Jobs />} />
-            <Route path='profile' element={<Profile />} />
             <Route path='login' element={<LoginForm submit={login} />} />
             <Route path='signup' element={<SignUpForm submit={signup} />} />
+            <Route path='companies' element={user ? <Companies /> : <Navigate to='/login' />} />
+            <Route path='companies/:handle' element={user ? <Company /> : <Navigate to='/login' />} />
+            <Route path='jobs' element={user ? <Jobs /> : <Navigate to='/login' />} />
+            <Route path='profile' element={user ? <Profile /> : <Navigate to='/login' />} />
           </Routes>
         </loginContext.Provider>
       </BrowserRouter>
