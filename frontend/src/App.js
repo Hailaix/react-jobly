@@ -14,17 +14,19 @@ import Profile from './Profile';
 import Company from './companies/Company';
 import loginContext from './loginContext';
 import JoblyApi from './api';
+import useLocalStorage from './useLocalStorage';
 
 
 
 function App() {
+  //hard coded token for testing
+  const statictoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+  "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+  "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  const [token, setToken] = useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc");
-  //still hard coding the token for now
+  //sets token in local storage under token, as well as in state
+  const [token, setToken] = useLocalStorage('token');
 
   JoblyApi.token = token;
   //for now, on initial mount only, grab the user based on static token

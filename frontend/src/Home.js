@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import loginContext from "./loginContext";
 
 const Home = () => {
+    const { user } = useContext(loginContext);
     return (
-        <h1>
-            Jobly
-        </h1>
+        <div>
+            {user
+                ? <h1>Welcome Back to Jobly, {user.firstName}!</h1>
+                : <h1>Welcome to Jobly!</h1>
+            }
+        </div>
     )
 }
 
