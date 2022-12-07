@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import JoblyApi from "./api";
 import JobCard from "./JobCard";
-const Company = ({ companies }) => {
+const Company = () => {
     //grab the handle from the params
     const { handle } = useParams();
     const navigate = useNavigate();

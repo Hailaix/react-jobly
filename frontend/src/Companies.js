@@ -8,7 +8,7 @@ const Companies = () => {
     const getCompanies = async (search) => {
         setCompanies(await JoblyApi.getCompanies(search))
     }
-    //initial grab of full company list on render
+    //initial grab of full company list on mount
     useEffect(() => {
         getCompanies();
     }, []);

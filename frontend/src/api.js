@@ -53,6 +53,12 @@ class JoblyApi {
     : await this.request('companies');
     return res.companies;
   }
+
+  //GET list of jobs, no filtering for now
+  static async getJobs() {
+    const res = await this.request('jobs');
+    return res.jobs;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
