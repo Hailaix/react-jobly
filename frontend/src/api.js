@@ -82,8 +82,13 @@ class JoblyApi {
 
   //PATCH update user profile with new { firstName, lastName, email, password} in data
   static async editUser(username, data) {
-    const res = await this.request(`users/${username}`, data, "patch");
+    const res = await this.request(`users/${username}`, data, 'patch');
     return res.user;
+  }
+
+  //POST have username apply to job with id id
+  static async apply(username, id) {
+    await this.request(`users/${username}/jobs/${id}`, {}, 'post');
   }
 }
 

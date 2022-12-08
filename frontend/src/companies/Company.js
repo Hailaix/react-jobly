@@ -33,6 +33,7 @@ const Company = () => {
             {company.jobs.map(job => (
                 <JobCard 
                     key={job.id}
+                    id={job.id}
                     companyHandle={handle}
                     companyName={company.name} 
                     equity={job.equity}

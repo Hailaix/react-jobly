@@ -24,6 +24,7 @@ const Jobs = () => {
             {jobs.map(job => (
                 <JobCard
                     key={job.id}
+                    id={job.id}
                     companyHandle={job.companyHandle}
                     companyName={job.companyName}
                     equity={job.equity}
